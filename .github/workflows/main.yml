@@ -1,0 +1,26 @@
+
+name: Build and Test .NET Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0 # Specify the desired .NET version
+
+      - name: Install Dependencies 
+        run: dotnet restore ./DotNETWebSample01/DotNETWebSample01.csproj
+
+      - name: Build project
+        run: dotnet build /t:build /p:Configuration=Release /p:DeployOnBuild=True # Replace with your project name
